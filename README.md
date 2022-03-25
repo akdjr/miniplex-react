@@ -4,33 +4,49 @@
 
 # miniplex-react
 
-_TODO_
-
-## Usage with React
+### React glue for [miniplex], the gentle game entity manager.
 
 **🚨 Warning: the React glue provided by this package is still incomplete and should be considered unstable. (It works, but there will be breaking changes!)**
 
-Even though Miniplex can be used without React (it is entirely framework agnostic), it does ship with some useful React glue, available in the `miniplex/react` module.
+The main entry point for this library is the `createECS` function, which will create a miniplex world alongside a collection of useful hooks and React components that will interact with it.
 
 ```ts
-import { createECS } from "miniplex/react"
+import { createECS } from "miniplex-react"
 ```
 
-This will create an object containing a newly created Miniplex world as well as a collection of useful React components and hooks. It is recommended that you invoke this function from a module in your application that exports the generated object, and then have the rest of your project import that module.
+It is recommended that you invoke this function from a module in your application that exports the generated object, and then have the rest of your project import that module, similar to how you would provide a global store:
 
 ```ts
-export default createECS()
+export const ECS = createECS()
+```
+
+**TypeScript note:** it is recommended that you define a type that describes the structure of your entities, and pass that to the `createECS` function. This will make sure that any and all interactions with the ECS world and the provided hooks and components have full type checking/hinting/autocomplete support:
+
+```ts
+import { createECS } from "miniplex-react"
+
+type Entity = {
+  position: { x: number; y: number; z: number }
+  velocity?: { x: number; y: number; z: number }
+  health?: number
+} & IEntity
+
+export const ECS = createECS<Entity>()
 ```
 
 ### world
 
-`createECS` returns a `world` property containing the actual ECS world. You can interact with it like you would usually do to imperatively create, modify and destroy entities (see the chapters above.)
+`createECS` returns a `world` property containing the actual ECS world. You can interact with it like you would usually do to imperatively create, modify and destroy entities:
+
+```ts
+const entity = ECS.world.createEntity({ position: { x: 0, y: 0 } })
+```
 
 ### useArchetype
 
-The `useArchetype` hook lets you get the entities of the specified archetype (similar to the `world.get` above) from within a React component. More importantly, this hook will make the component _re-render_ every time entities are added to or removed from the archetype. This is useful for implementing systems as React components, or writing React components that render entities:
+The `useArchetype` hook lets you fetch and subscribe to a specific set of entities by way of an archetype query; it's just like using `world.archetype(query)`, but will reactively re-render your React component whenever an entity is added to or removed from the archetype:
 
-```ts
+```tsx
 const MovementSystem = () => {
   const { entities } = useArchetype(movingEntities)
 
@@ -46,14 +62,20 @@ const MovementSystem = () => {
 }
 ```
 
-`createECS` also provides `Entity` and `Component` React components that you can use to declaratively create (or add components to) entities:
+### `<Entity>`
 
-```jsx
-const Car = () => (
-  <Entity>
-    <Component name="position" data="{ x: 0, y: 0, z: 0 }" />
-    <Component name="position" data="{ x: 10, y: 0, z: 0 }" />
-    <Component name="sprite" data="/images/car.png" />
-  <Entity>
-)
-```
+_TODO_
+
+### `<Component>`
+
+_TODO_
+
+### `<Entities>`
+
+_TODO_
+
+### `<Collection>`
+
+_TODO_
+
+[miniplex]: https://github.com/hmans/miniplex
