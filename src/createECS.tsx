@@ -8,7 +8,8 @@ import React, {
   ReactElement,
   useRef,
   useLayoutEffect,
-  forwardRef
+  forwardRef,
+  useImperativeHandle
 } from "react"
 import { UntypedEntity, IEntity, World, Tag, Query, EntityWith } from "miniplex"
 import { useConst } from "./util/useConst"
@@ -36,7 +37,7 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
     )
 
     /* Apply ref */
-    if (ref) ref instanceof Function ? ref(entity) : (ref.current = entity)
+    useImperativeHandle(ref, () => entity)
 
     /* If the entity was freshly created, manage its presence in the ECS world. */
     useLayoutEffect(() => {
