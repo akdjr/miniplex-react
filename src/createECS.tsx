@@ -7,7 +7,8 @@ import React, {
   cloneElement,
   ReactElement,
   useRef,
-  useLayoutEffect
+  useLayoutEffect,
+  forwardRef
 } from "react"
 import { UntypedEntity, IEntity, World, Tag, Query, EntityWith } from "miniplex"
 import { useConst } from "./util/useConst"
@@ -22,14 +23,20 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
    * A React component to either create a new entity, or represent an existing entity so
    * it can be enhanced with additional components (see the <Component> component.)
    */
-  const Entity: FC<{
-    children?: ReactNode | ((entity: TEntity) => JSX.Element)
-    entity?: TEntity
-  }> = ({ entity: existingEntity, children }) => {
+  const Entity = forwardRef<
+    TEntity,
+    {
+      children?: ReactNode | ((entity: TEntity) => JSX.Element)
+      entity?: TEntity
+    }
+  >(({ entity: existingEntity, children }, ref) => {
     /* Reuse the specified entity or create a new one */
     const entity = useConst<TEntity>(
       () => existingEntity ?? world.createEntity()
     )
+
+    /* Apply ref */
+    if (ref) ref instanceof Function ? ref(entity) : (ref.current = entity)
 
     /* If the entity was freshly created, manage its presence in the ECS world. */
     useLayoutEffect(() => {
@@ -43,7 +50,7 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
         {typeof children === "function" ? children(entity) : children}
       </EntityContext.Provider>
     )
-  }
+  })
 
   const MemoizedEntity: FC<{ entity: TEntity }> = memo(
     ({ entity, children }) => (

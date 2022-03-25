@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react"
 import { act } from "react-dom/test-utils"
 import { IEntity, Tag } from "miniplex"
 import { createECS } from "../src/createECS"
+import { useRef } from "react"
 
 type Entity = { name: string } & IEntity
 
@@ -30,7 +31,18 @@ describe("createECS", () => {
       expect(world.entities.length).toEqual(1)
     })
 
-    it.todo("accepts a ref and sets it to the created entity")
+    it("accepts a ref and sets it to the created entity", () => {
+      const { Entity } = createECS<Entity>()
+      let ref = null
+
+      const setEntity = (entity: Entity) => {
+        ref = entity
+      }
+
+      render(<Entity ref={setEntity} />)
+
+      expect(ref).not.toBeNull()
+    })
   })
 
   describe("Component", () => {
