@@ -3330,7 +3330,7 @@ minimist-options@4.1.0:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-"miniplex@>= 0.8.0-0":
+miniplex@^0.8.0-1:
   version "0.8.0-1"
   resolved "https://registry.yarnpkg.com/miniplex/-/miniplex-0.8.0-1.tgz#2c3a7cfd8dab9bcbad81081f7ef2ac8dbb054c8b"
   integrity sha512-dVnUoA2nJss05K6lP0+f4lv6HSJJlMZxquKGGZ01pQ2BQ04BMxfvfolyjceBeY6eMuElaDr8WaHNUjgBD3Df0A==
