@@ -72,6 +72,6 @@
     ]
   },
   "dependencies": {
-    "miniplex": "^0.7.2"
+    "miniplex": "^0.8.0-0"
   }
 }
