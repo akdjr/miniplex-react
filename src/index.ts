@@ -1,1 +1,1 @@
-export const foo = "bar"
+export { createECS } from "./react"
