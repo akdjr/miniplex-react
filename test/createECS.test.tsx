@@ -8,12 +8,28 @@ type Entity = { name: string } & IEntity
 
 describe("createECS", () => {
   it("returns a useArchetype function", () => {
-    const react = createECS<Entity>()
-    expect(react).toHaveProperty("useArchetype")
+    const ECS = createECS<Entity>()
+    expect(ECS).toHaveProperty("useArchetype")
   })
 
   describe("Entity", () => {
-    it.todo("creates an entity")
+    it("creates an entity", () => {
+      const { world, Entity } = createECS<Entity>()
+
+      expect(world.entities.length).toEqual(0)
+      render(<Entity />)
+      expect(world.entities.length).toEqual(1)
+    })
+
+    it("represents an existing entity", () => {
+      const { world, Entity } = createECS<Entity>()
+      const alice = world.createEntity({ name: "Alice" })
+
+      expect(world.entities.length).toEqual(1)
+      render(<Entity entity={alice} />)
+      expect(world.entities.length).toEqual(1)
+    })
+
     it.todo("accepts a ref and sets it to the created entity")
   })
 
