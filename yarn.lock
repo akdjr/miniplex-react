@@ -3330,10 +3330,10 @@ minimist-options@4.1.0:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-miniplex@^0.8.0-0:
-  version "0.8.0-0"
-  resolved "https://registry.yarnpkg.com/miniplex/-/miniplex-0.8.0-0.tgz#cde84f23808b2e878aff5709d0d402a2cc6e7d5e"
-  integrity sha512-awnMA9v3kM9h9Gtuj6kjPplZ+isMQfi9kj6j7wvKtGBKE9jl+q3TTs615gSnhvhdq+rYXbnQoej7VVupxKoDeQ==
+"miniplex@>= 0.8.0-0":
+  version "0.8.0-1"
+  resolved "https://registry.yarnpkg.com/miniplex/-/miniplex-0.8.0-1.tgz#2c3a7cfd8dab9bcbad81081f7ef2ac8dbb054c8b"
+  integrity sha512-dVnUoA2nJss05K6lP0+f4lv6HSJJlMZxquKGGZ01pQ2BQ04BMxfvfolyjceBeY6eMuElaDr8WaHNUjgBD3Df0A==
 
 ms@2.1.2:
   version "2.1.2"
