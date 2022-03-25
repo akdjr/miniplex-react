@@ -16,13 +16,15 @@ import { createECS } from "miniplex-react"
 
 It is recommended that you invoke this function from a module in your application that exports the generated object, and then have the rest of your project import that module, similar to how you would provide a global store:
 
-```ts
+```js
+/* state.js */
 export const ECS = createECS()
 ```
 
 **TypeScript note:** it is recommended that you define a type that describes the structure of your entities, and pass that to the `createECS` function. This will make sure that any and all interactions with the ECS world and the provided hooks and components have full type checking/hinting/autocomplete support:
 
 ```ts
+/* state.ts */
 import { createECS } from "miniplex-react"
 
 type Entity = {
