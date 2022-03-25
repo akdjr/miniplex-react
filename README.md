@@ -128,29 +128,89 @@ When `<Entity>` is used to represent and enhance an existing entity, the entity 
 
 ### `<Collection>`
 
-_TODO_
+In games and other ECS-oriented applications, you will often have several distinct _entity types_ -- like spaceships, asteroids, bullets, explosions, etc. -- even if these entities are composed of several shared ECS components. All entities within a specific entity type are typically composed from the same set of components (eg. spaceships always have a position and a velocity), and rendered in a similar manner (eg. bullets will always be rendered using a small box mesh, but with varying materials.)
+
+The `<Collection>` React component is an abstraction over this. It will take over management and rendering of such an entity type, assuming that this type can be identified by the presence of a specific tag (a tag being an ECS component that is always just `true` and doesn't hold any additional data; miniplex provides a `Tag` type and constant for this.)
+
+Let's take a look at an example:
+
+```tsx
+const Asteroids = () => (
+  <ECS.Collection tag="asteroid" initial={100}>
+    {(entity) => (
+      <>
+        <ECS.Component
+          name="position"
+          data={{
+            x: Math.random() * 100 - 50,
+            y: Math.random() * 100 - 50,
+            z: Math.random() * 100 - 50
+          }}
+        />
+
+        <ECS.Component name="three">
+          <AsteroidModel />
+        </ECS.Component>
+      </>
+    )}
+  </ECS.Collection>
+)
+```
+
+This code will do the following:
+
+- Create an initial set of 100 entities that have the `asteroid` tag
+- Render all of these entities, using the render function passed as a child
+- Reactively update when entities from this collection are added or removed outside of this component
+- When unmounted, destroy all entities that have the `asteroid` tag.
+
+A couple of important notes:
+
+- The child does not have to be a render function, you can simply pass normal React children. We're using a render function here because we're randomizing the positions of newly spawned asteroids, and need these values to be different for every entity.
+- Note how the render function is passed a reference to the current entity as its first and only argument. You can use this to access existing data on the entity when needed.
+- The children of this component are automatically _memoized_, so if you've already rendered a hundred asteroids and a new asteroid is added, only that new asteroid will have the inner function executed. This is almost always what you want (because rerendering _all_ items would quickly crush performance.) Keep in mind that if any of your inner components reactively rerender based on eg. state changes, this will still work fine.
 
 ### useArchetype
 
-The `useArchetype` hook lets you fetch and subscribe to a specific set of entities by way of an archetype query; it's just like using `world.archetype(query)`, but will reactively re-render your React component whenever an entity is added to or removed from the archetype:
-
-### `<Entities>`
-
-_TODO_
+Sometimes you'll write React components that need access to entities of a specific archetype, without rendering them. This is what the `useArchetype` hook is for. Similar to the `world.archetype` function provided by [miniplex], this will return the requested archetype, but it will also automatically re-render the component whenever entities are added to or removed from the archetype's entities list.
 
 ```tsx
 const MovementSystem = () => {
-  const { entities } = useArchetype(movingEntities)
+  const { entities } = ECS.useArchetype("position", "velocity")
 
-  useFrame(() => {
-    for (const { position, velocity } of entities) {
-      position.x += velocity.x
-      position.y += velocity.y
-      position.z += velocity.z
-    }
-  })
+  /* Do something with the entities here */
 
   return null
+}
+```
+
+### `<Entities>`
+
+The `<Entities>` React component takes a list of entities and renders them, similar to the `<Collection>` component described earlier, except it doesn't require the entities to be identified by a tag, nor does it do any of its own entity management. You can use it together with `useEntities` to build your custom collection management components, for example:
+
+```tsx
+const EnemyShips = () => {
+  const { entities } = ECS.useArchetype("ship", "enemy")
+
+  return (
+    <ECS.Entities entities={entities}>
+      <ECS.Component name="three">
+        <EnemyShipModel />
+      </ECS.Component>
+    </ECS.Entities>
+  )
+}
+
+const EnemyShips = () => {
+  const { entities } = ECS.useArchetype("ship", "friendly")
+
+  return (
+    <ECS.Entities entities={entities}>
+      <ECS.Component name="three">
+        <FriendlyShipModel />
+      </ECS.Component>
+    </ECS.Entities>
+  )
 }
 ```
 
