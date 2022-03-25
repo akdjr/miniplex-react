@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom"
 import { render, screen } from "@testing-library/react"
 import { act } from "react-dom/test-utils"
-import { IEntity, Tag } from "../src"
-import { createECS } from "../src/react"
+import { IEntity, Tag } from "miniplex"
+import { createECS } from "../src/createECS"
 
 type Entity = { name: string } & IEntity
 
@@ -32,7 +32,9 @@ describe("createECS", () => {
     })
 
     it("it accepts a single React child to set as the entity's data", () => {
-      const { world, Entity, Component } = createECS<Entity & { label?: HTMLElement }>()
+      const { world, Entity, Component } = createECS<
+        Entity & { label?: HTMLElement }
+      >()
       const alice = world.createEntity({ name: "Alice" })
 
       render(
@@ -48,7 +50,9 @@ describe("createECS", () => {
     })
 
     it("when passed a React child, it is also possible to pass a render function", () => {
-      const { world, Entity, Component } = createECS<Entity & { label?: HTMLElement }>()
+      const { world, Entity, Component } = createECS<
+        Entity & { label?: HTMLElement }
+      >()
       const alice = world.createEntity({ name: "Alice" })
 
       render(
@@ -194,7 +198,9 @@ describe("createECS", () => {
     })
 
     it("optionally memoizes entity components so they don't always rerender", () => {
-      const { world, Collection } = createECS<Entity & { renderCount: number }>()
+      const { world, Collection } = createECS<
+        Entity & { renderCount: number }
+      >()
 
       const alice = world.createEntity({ name: "Alice", renderCount: 0 })
       const bob = world.createEntity({ name: "Bob", renderCount: 0 })

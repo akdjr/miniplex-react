@@ -1,1 +1,1 @@
-export { createECS } from "./react"
+export { createECS } from "./createECS"
