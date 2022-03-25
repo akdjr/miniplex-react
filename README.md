@@ -38,7 +38,7 @@ type Entity = {
 export const ECS = createECS<Entity>()
 ```
 
-### world
+### The World
 
 `createECS` returns a `world` property containing the actual ECS world. You can interact with it like you would usually do to imperatively create, modify and destroy entities:
 
