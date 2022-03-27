@@ -64,14 +64,11 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
   const Entities: FC<{
     children: ReactNode | ((entity: TEntity) => JSX.Element)
     entities: TEntity[]
-    memoize?: boolean
-  }> = ({ entities, memoize = false, children }) => {
-    const Klass = memoize ? MemoizedEntity : Entity
-
+  }> = ({ entities, children }) => {
     return (
       <>
         {entities.map((entity) => (
-          <Klass entity={entity} key={entity.id} children={children} />
+          <MemoizedEntity entity={entity} key={entity.id} children={children} />
         ))}
       </>
     )
@@ -79,14 +76,12 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
 
   function Collection<TTag extends keyof TEntity>({
     initial = 0,
-    memoize = false,
     tag,
     children
   }: {
     children: ReactNode | ((entity: EntityWith<TEntity, TTag>) => JSX.Element)
     initial?: number
     tag: TTag
-    memoize?: boolean
   }) {
     const { entities } = useArchetype(tag)
 
@@ -105,11 +100,7 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
       }
     }, [tag, initial])
 
-    return (
-      <Entities entities={entities} memoize={memoize}>
-        {children}
-      </Entities>
-    )
+    return <Entities entities={entities}>{children}</Entities>
   }
 
   /**
