@@ -996,6 +996,11 @@
   resolved "https://registry.yarnpkg.com/@hmans/react-toolbox/-/react-toolbox-0.1.4.tgz#295f47976565fcd043ed0bc4078c382e411dc082"
   integrity sha512-PmhaalZ70hSfIX7AUgWO9gVhKkWH8cbZXxGzmjgJ+46sw6cJUlnawkc/WlIxtUro+TTW61YG1i+18QD0zsvF+Q==
 
+"@hmans/signal@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@hmans/signal/-/signal-0.1.7.tgz#48fdc6df8e1735f790438bf8c92be907d4f24713"
+  integrity sha512-YTmJcMIiSGRvDj474p5iBO/4K0XnCNT1ew9kgwgkNsXITNhmWDjuMGkHnGCo0ITgTx8xmiELqOZ9sDaBIAAROQ==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -1344,9 +1349,9 @@
     "@sinonjs/commons" "^1.7.0"
 
 "@testing-library/dom@^8.0.0":
-  version "8.11.4"
-  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.11.4.tgz#dc94d830b862e7a20686b0379eefd931baf0445b"
-  integrity sha512-7vZ6ZoBEbr6bfEM89W1nzl0vHbuI0g0kRrI0hwSXH3epnuqGO3KulFLQCKfmmW+60t7e4sevAkJPASSMmnNCRw==
+  version "8.12.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.12.0.tgz#fef5e545533fb084175dda6509ee71d7d2f72e23"
+  integrity sha512-rBrJk5WjI02X1edtiUcZhgyhgBhiut96r5Jp8J5qktKdcvLcZpKDW8i2hkGMMItxrghjXuQ5AM6aE0imnFawaw==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/runtime" "^7.12.5"
@@ -2121,9 +2126,9 @@ domexception@^2.0.1:
     webidl-conversions "^5.0.0"
 
 electron-to-chromium@^1.4.84:
-  version "1.4.93"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.93.tgz#2e87ac28721cb31d472ec2bd04f7daf9f2e13de2"
-  integrity sha512-ywq9Pc5Gwwpv7NG767CtoU8xF3aAUQJjH9//Wy3MBCg4w5JSLbJUq2L8IsCdzPMjvSgxuue9WcVaTOyyxCL0aQ==
+  version "1.4.96"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.96.tgz#a97438a01d5db1460343fea4a344960b09330990"
+  integrity sha512-DPNjvNGPabv6FcyjzLAN4C0psN/GgD9rSGvMTuv81SeXG/EX3mCz0wiw9N1tUEnfQXYCJi3H8M0oFPRziZh7rw==
 
 emittery@^0.8.1:
   version "0.8.1"
@@ -3335,10 +3340,12 @@ minimist-options@4.1.0:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-miniplex@^0.8.0-1:
-  version "0.8.0-1"
-  resolved "https://registry.yarnpkg.com/miniplex/-/miniplex-0.8.0-1.tgz#2c3a7cfd8dab9bcbad81081f7ef2ac8dbb054c8b"
-  integrity sha512-dVnUoA2nJss05K6lP0+f4lv6HSJJlMZxquKGGZ01pQ2BQ04BMxfvfolyjceBeY6eMuElaDr8WaHNUjgBD3Df0A==
+miniplex@^0.8.0-2:
+  version "0.8.0-2"
+  resolved "https://registry.yarnpkg.com/miniplex/-/miniplex-0.8.0-2.tgz#86ccef1cf4dfffdd8c560beab19d6f3fb6fa6860"
+  integrity sha512-+kXYV1DATjQiL8a74Kc64rHc5LBou5+8Kje4VJYeUUu4O8Q9A/w4HVB+fH7sItndOfzkotX10JTwqOB/hgtzNA==
+  dependencies:
+    "@hmans/signal" "^0.1.7"
 
 ms@2.1.2:
   version "2.1.2"

@@ -48,7 +48,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.13",
     "jest": "^27.5.1",
-    "miniplex": "^0.8.0-1",
+    "miniplex": "^0.8.0-2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "rimraf": "^3.0.2",
@@ -61,7 +61,7 @@
     "@hmans/react-toolbox": "^0.1.4"
   },
   "peerDependencies": {
-    "miniplex": ">= 0.8.0-1",
+    "miniplex": ">= 0.8.0-2",
     "react": ">=16.8"
   },
   "babel": {

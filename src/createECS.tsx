@@ -173,16 +173,16 @@ export function createECS<TEntity extends IEntity = UntypedEntity>() {
     const archetype = useConst(() => world.archetype(...query))
 
     useLayoutEffect(() => {
-      archetype.onEntityAdded.on(rerender)
-      archetype.onEntityRemoved.on(rerender)
+      archetype.onEntityAdded.add(rerender)
+      archetype.onEntityRemoved.add(rerender)
 
       /* We need to rerender at least once, because other effects might have set up
          new entities before we had a chance to register our listeners. */
       rerender()
 
       return () => {
-        archetype.onEntityAdded.off(rerender)
-        archetype.onEntityRemoved.off(rerender)
+        archetype.onEntityAdded.remove(rerender)
+        archetype.onEntityRemoved.remove(rerender)
       }
     }, [archetype])
 
