@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react"
 import { act } from "react-dom/test-utils"
 import { IEntity, Tag } from "miniplex"
 import { createECS } from "../src/createECS"
-import { useRef } from "react"
 
 type Entity = { name: string } & IEntity
 

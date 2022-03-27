@@ -12,8 +12,7 @@ import React, {
   useImperativeHandle
 } from "react"
 import { UntypedEntity, IEntity, World, Tag, Query, EntityWith } from "miniplex"
-import { useConst } from "./util/useConst"
-import { useRerender } from "./util/useRerender"
+import { useConst, useRerender } from "@hmans/react-toolbox"
 
 export function createECS<TEntity extends IEntity = UntypedEntity>() {
   const world = new World<TEntity>()
